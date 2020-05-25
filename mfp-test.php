@@ -31,13 +31,6 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Currently plugin version.
- * Start at version 1.0.0 and use SemVer - https://semver.org
- * Rename this for your plugin and update it as you release new versions.
- */
-define( 'MFP_TEST_VERSION', '1.0.0' );
-
-/**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-mfp-test-activator.php
  */
@@ -80,3 +73,16 @@ function run_mfp_test() {
 
 }
 run_mfp_test();
+
+require 'plugin-update-checker/plugin-update-checker.php';
+$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+	'https://github.com/mfpDevForce/readmore/',
+	__FILE__,
+	'mfp-test'
+);
+
+//Optional: If you're using a private repository, specify the access token like this:
+$myUpdateChecker->setAuthentication('93b0452f4ec37010234d7d8205524ff7d9ef1167');
+
+//Optional: Set the branch that contains the stable release.
+$myUpdateChecker->setBranch('master');
